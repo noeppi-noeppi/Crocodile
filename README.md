@@ -73,7 +73,7 @@ Events are provided to Crocodile as a JSON object with the following properties:
 Calendars can be configured with login methods. Crocodile knows about two builtin login methods:
 
 - `never` never succeeds and locks the calendar for everyone.
-- `open` doesn't perform authentication and opens the calendar to everyone,. This is not recommended for public access.
+- `open` doesn't perform authentication and opens the calendar to everyone. This is not recommended for `loginWrite` as it would allow public write access.
 
 Any other login method causes Crocodile to use [JAAS](https://de.wikipedia.org/wiki/Java_Authentication_and_Authorization_Service) for login.
 Crocodile will attempt to authenticate the user with the corresponding JAAS entry and a callback handler that answers every name and password callback with the values provided through HTTP basic auth.
