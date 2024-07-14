@@ -35,7 +35,7 @@ public class Database implements AutoCloseable  {
     
     private static void createEventsTable(Connection connection) throws SQLException {
         try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate("""
+            stmt.addBatch("""
                     CREATE TABLE events (
                       uid UUID PRIMARY KEY,
                       cal TEXT NOT NULL,
@@ -50,6 +50,10 @@ public class Database implements AutoCloseable  {
                       end_time TIME
                     );
                     """);
+            stmt.addBatch("""
+                    CREATE INDEX ON events USING HASH (cal);
+                    """);
+            stmt.executeBatch();
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
